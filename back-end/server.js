@@ -5,7 +5,7 @@ const app = express();
 const mongoose = require('mongoose');
 dotenv.config();
 const PORT = process.env.PORT || 7000;
-const DB_LINK = process.env.DB_LINK;
+const DB_LINK = process.env.DB_LINK || 'mongodb+srv://moviedb:moviedb@cluster0.lsghmln.mongodb.net/';
 
 
 
