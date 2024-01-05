@@ -1,7 +1,7 @@
 const Movie = require('../models/movieSchema');
 
 
-export const getAllMovies = async (req, res) => {
+const getAllMovies = async (req, res) => {
     try {
         const movies = await Movie.find({});
         return res.status(200).json({ message: 'Success', data: movies });
@@ -11,7 +11,7 @@ export const getAllMovies = async (req, res) => {
 
 }
 
-export const addMovie = async (req, res) => {
+const addMovie = async (req, res) => {
     const { title, plot, cast, poster, releaseYear } = req.body;
     try {
         await new Movie(
@@ -29,21 +29,24 @@ export const addMovie = async (req, res) => {
     }
 }
 
-export const getMovieById = async (req, res) => {
+const getMovieById = async (req, res) => {
     try {
-        const movies = await Movie.findOne({ _id: req.params });
+        const movies = await Movie.findOne({ _id: req.params.id });
         return res.status(200).json({ message: 'Success', data: movies })
     } catch (error) {
         return res.status(500).json({ message: error.message, data: null });
     }
 }
 
-export const searchMovie = async (req, res) => {
+const searchMovie = async (req, res) => {
     try {
-        const serachKey = req.query.name;
-        const serachedMovies = await Movie.find({ $match: { title: serachKey } });
+        const { name } = req.query;
+        const regex = new RegExp(name, 'i');
+        const serachedMovies = await Movie.find({ title: regex });
         return res.status(200).json({ message: 'success', data: serachedMovies });
     } catch (error) {
         return res.status(500).json({ message: error.message, data: null });
     }
 }
+
+module.exports = { getAllMovies, addMovie, getMovieById, searchMovie };

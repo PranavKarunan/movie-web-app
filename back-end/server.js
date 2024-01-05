@@ -11,9 +11,9 @@ const DB_LINK = process.env.DB_LINK;
 
 app.use(express.json(), cors());
 app.listen(PORT, () => console.log(`server running on port ${PORT}`));
-app.get("/", (req, res) => {
-    res.json("Server is working");
-});
+
+const movieRoutes = require('./routes/movieRoutes');
+app.use('/', movieRoutes);
 
 
 mongoose

@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema();
+const Schema = mongoose.Schema; // Remove parentheses here
 
 const movieSchema = Schema({
     title: {
         type: String,
-        required: [true, 'Name of movie should specified']
+        required: [true, 'Name of the movie should be specified']
     },
     releaseYear: {
         type: Date,
@@ -20,7 +20,6 @@ const movieSchema = Schema({
     cast: {
         type: String
     }
-
 });
 
-export const Movies = mongoose.model('Movies', movieSchema);
+module.exports = mongoose.model('Movies', movieSchema);
